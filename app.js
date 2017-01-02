@@ -2,6 +2,7 @@ var restify = require('restify')
 var models = require('./models/')
 var users = require('./controllers/user')
 var todos = require('./controllers/todo')
+const PORT = process.env.PORT || 3000
 models.sequelize.sync().then(function () {
 
   var server = restify.createServer()
@@ -25,7 +26,7 @@ models.sequelize.sync().then(function () {
   //   default: 'index.html'
   // }));
 
-  server.listen(8080, function () {
+  server.listen(PORT, function () {
     console.log('%s listening at %s', server.name, server.url);
   })
 })
