@@ -1,4 +1,5 @@
 var User = require('../models').User
+var Todo = require('../models').Todo
 
 module.exports = {
   list(req, res){
@@ -18,6 +19,7 @@ module.exports = {
   },
   find(req, res){
     var query = {
+      include: req.query.todos ? Todo : false,
       where: {
         id: req.params.id
       }
