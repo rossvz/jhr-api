@@ -2,7 +2,7 @@ var restify = require('restify')
 var models = require('./models/')
 var users = require('./controllers/user')
 var todos = require('./controllers/todo')
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 models.sequelize.sync().then(function () {
 
   var server = restify.createServer()

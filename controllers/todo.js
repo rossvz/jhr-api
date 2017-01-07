@@ -49,7 +49,8 @@ module.exports = {
       .then(function (updatedTodos) {
         res.send({
           message: `Todo ${req.params.id} updated`,
-          count: updatedTodos
+          count: updatedTodos,
+          todo: req.body
         });
       })
       .catch(function (error) {
