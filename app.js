@@ -11,6 +11,8 @@ const PORT = process.env.PORT
 models.sequelize.sync().then(function () {
 
   var server = restify.createServer()
+
+  restify.CORS.ALLOW_HEADERS.push('authorization');
   server.use(restify.CORS());
   server.use(restify.bodyParser());
   server.use(restify.queryParser());
