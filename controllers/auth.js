@@ -24,7 +24,7 @@ module.exports = {
       } else {
         res.status(404);
         res.send({
-            message: 'Invalid credentials',
+          message: 'Invalid credentials',
         });
       }
     });
