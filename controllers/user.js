@@ -27,7 +27,7 @@ module.exports = {
     User.findOne(query).then(user => {
       res.send({
         message: user ? `User find query successful` : 'No user found',
-        user: user ? user : {}
+        user: user || {}
       })
     })
   },

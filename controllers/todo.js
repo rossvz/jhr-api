@@ -2,7 +2,12 @@ var Todo = require('../models').Todo
 
 module.exports = {
   list(req, res){
-    var query = { where: req.query }
+    const query = {
+      where: Object.assign({}, req.query, {
+        UserId: req.user.id,
+      }),
+    };
+
     Todo.findAll(query)
       .then(function (todos) {
         var results = {
@@ -19,7 +24,8 @@ module.exports = {
   find(req, res){
     var query = {
       where: {
-        id: req.params.id
+        id: req.params.id,
+        UserId: req.user.id,
       }
     }
     Todo.findOne(query).then(todo => {
@@ -30,8 +36,9 @@ module.exports = {
     })
   },
   create(req, res){
-    Todo.create(req.body)
-      .then(newTodo => {
+    Todo.create(Object.assign({}, req.body, {
+      UserId: req.user.id,
+    })).then(newTodo => {
         res.send({
           message: 'Todo created successfully',
           todo: newTodo
@@ -43,10 +50,10 @@ module.exports = {
   update(req, res) {
     Todo.update(req.body, {
       where: {
-        id: req.params.id
+        id: req.params.id,
+        UserId: req.user.id,
       }
-    })
-      .then(function (updatedTodos) {
+    }).then(function (updatedTodos) {
         res.send({
           message: `Todo ${req.params.id} updated`,
           count: updatedTodos,
@@ -60,7 +67,8 @@ module.exports = {
   delete(req, res) {
     Todo.destroy({
       where: {
-        id: req.params.id
+        id: req.params.id,
+        UserId: req.user.id,
       }
     })
       .then(function (deletedTodos) {
