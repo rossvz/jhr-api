@@ -1,8 +1,13 @@
+require('dotenv').config()
+
 var restify = require('restify')
 var models = require('./models/')
 var users = require('./controllers/user')
 var todos = require('./controllers/todo')
-const PORT = process.env.PORT || 3001
+const auth = require('./controllers/auth')
+const jwtMiddleware = require('./middleware/jwt')
+
+const PORT = process.env.PORT
 models.sequelize.sync().then(function () {
 
   var server = restify.createServer()
@@ -10,6 +15,9 @@ models.sequelize.sync().then(function () {
   server.use(restify.bodyParser());
   server.use(restify.queryParser());
 
+  server.use(jwtMiddleware);
+
+  server.post('/login', auth.login);
   server.get('/users', users.list);
   server.get('/users/:id', users.find);
   server.post('/users', users.create);
