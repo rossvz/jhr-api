@@ -4,7 +4,7 @@ const jwt = require('restify-jwt');
 const JWT_SECRET = process.env.JWT_SECRET
 
 module.exports = jwt({ secret: JWT_SECRET }).unless({
-  path: ['/login'],
+  path: ['/login','/signup'],
   getToken: function fromHeaderOrQuerystring (req) {
     if (
       req.headers.authorization

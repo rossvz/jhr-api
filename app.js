@@ -1,16 +1,16 @@
 require('dotenv').config()
 
-var restify = require('restify')
-var models = require('./models/')
-var users = require('./controllers/user')
-var todos = require('./controllers/todo')
+const restify = require('restify')
+const models = require('./models/')
+const users = require('./controllers/user')
+const todos = require('./controllers/todo')
 const auth = require('./controllers/auth')
 const jwtMiddleware = require('./middleware/jwt')
 
 const PORT = process.env.PORT
 models.sequelize.sync().then(function () {
 
-  var server = restify.createServer()
+  const server = restify.createServer()
 
   restify.CORS.ALLOW_HEADERS.push('authorization');
   server.use(restify.CORS());
@@ -19,6 +19,7 @@ models.sequelize.sync().then(function () {
 
   server.use(jwtMiddleware);
 
+  server.post('/signup', users.create)
   server.post('/login', auth.login);
   server.get('/users', users.list);
   server.get('/users/:id', users.find);

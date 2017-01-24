@@ -1,4 +1,4 @@
-var Todo = require('../models').Todo
+const Todo = require('../models').Todo
 
 module.exports = {
   list(req, res){
@@ -10,7 +10,7 @@ module.exports = {
 
     Todo.findAll(query)
       .then(function (todos) {
-        var results = {
+        let results = {
           message: 'Todo list query successful',
           count: todos.length,
           todos: todos
@@ -22,7 +22,7 @@ module.exports = {
       })
   },
   find(req, res){
-    var query = {
+    let query = {
       where: {
         id: req.params.id,
         UserId: req.user.id,
