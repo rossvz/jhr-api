@@ -1,12 +1,12 @@
-var User = require('../models').User
-var Todo = require('../models').Todo
+const User = require('../models').User
+const Todo = require('../models').Todo
 
 module.exports = {
   list(req, res){
-    var query = { where: req.query }
+    let query = { where: req.query }
     User.findAll(query)
       .then(function (users) {
-        var results = {
+        let results = {
           message: 'Users list query successful',
           count: users.length,
           users: users
@@ -18,7 +18,7 @@ module.exports = {
       })
   },
   find(req, res){
-    var query = {
+    let query = {
       include: req.query.todos ? Todo : false,
       where: {
         id: req.params.id
